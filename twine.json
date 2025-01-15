@@ -1,0 +1,24 @@
+{
+  "input_values_schema": {
+    "type": "object",
+    "required": ["n_iterations"],
+    "properties": {
+      "n_iterations": {
+        "type": "integer"
+      }
+    }
+  },
+  "output_values_schema": {
+    "title": "Output values",
+    "description": "The elevations at the input longitudes and latitudes.",
+    "type": "array",
+    "items": {
+      "type": "number"
+    }
+  },
+  "output_manifest": {
+    "datasets": {
+      "example_dataset": {}
+    }
+  }
+}

@@ -1,0 +1,3 @@
+{
+  "output_location": "gs://octue-sdk-python-test-bucket/example-service-kueue/outputs"
+}

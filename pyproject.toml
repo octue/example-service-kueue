@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "example-service-kueue"
+version = "0.5.0"
+description = "An example Octue Twined data service using Kueue as the service backend."
+authors = ["Marcus Lugg <marcus@octue.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "example_service_kueue"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+octue = "0.61.2"
+
+[tool.poetry.group.dev.dependencies]
+gcp-storage-emulator = "2022.4.13"
+pre-commit = "^2.20.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,6 @@
+services:
+  - namespace: octue
+    name: example-service-kueue
+    app_source_path: example_service_kueue
+    app_configuration_path: app_configuration.json
+    event_store_table_id: octue_sdk_python_test_dataset.service-events

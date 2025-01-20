@@ -8,6 +8,10 @@ terraform {
       source = "hashicorp/kubernetes"
       version = "~>2.35.1"
     }
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = "~>1.19.0"
+    }
   }
   cloud {
     organization = "octue"
@@ -23,6 +27,17 @@ provider "google" {
   credentials = file(var.google_cloud_credentials_file)
   project     = var.google_cloud_project_id
   region      = var.google_cloud_region
+}
+
+
+data "google_client_config" "default" {}
+
+
+provider "kubectl" {
+  load_config_file       = false
+  host                   = "https://${google_container_cluster.primary.endpoint}"
+  token                  = data.google_client_config.default.access_token
+  cluster_ca_certificate = base64decode(google_container_cluster.primary.master_auth[0].cluster_ca_certificate)
 }
 
 

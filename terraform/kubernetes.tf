@@ -10,6 +10,7 @@ resource "google_container_cluster" "primary" {
   depends_on = [time_sleep.wait_for_google_apis_to_enable]
 }
 
+
 resource "google_container_node_pool" "primary_preemptible_nodes" {
   name       = "${terraform.workspace}-node-pool"
   location   = var.google_cloud_region
@@ -26,4 +27,17 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
     #   "https://www.googleapis.com/auth/cloud-platform"
     # ]
   }
+}
+
+
+# This manifest will install Kueue on the cluster when applied.
+data "http" "kueue_manifest" {
+  url = "https://github.com/kubernetes-sigs/kueue/releases/download/${var.kueue_version}/manifests.yaml"
+}
+
+
+# This installs Kueue on the cluster.
+resource "kubectl_manifest" "install_kueue" {
+  yaml_body = data.http.kueue_manifest.response_body
+  server_side_apply = true
 }

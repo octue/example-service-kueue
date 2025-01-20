@@ -37,3 +37,8 @@ variable "deletion_protection" {
   type    = bool
   default = false
 }
+
+variable "kueue_version" {
+  type = string
+  default = "v0.10.0"
+}

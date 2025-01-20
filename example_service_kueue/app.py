@@ -7,7 +7,6 @@ from octue.resources import Datafile, Dataset
 
 from example_service_kueue.submodule import do_something
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -18,7 +17,6 @@ def run(analysis):
     analysis.output_values = [1, 2, 3, 4, 5]
 
     with tempfile.TemporaryDirectory() as temporary_directory:
-
         with Datafile(os.path.join(temporary_directory, "output.dat"), mode="w") as (datafile, f):
             f.write("This is some example service output.")
 

@@ -6,7 +6,6 @@ from octue import Runner
 from octue.cloud.emulators.cloud_storage import GoogleCloudStorageEmulatorTestResultModifier, mock_generate_signed_url
 from octue.resources import Manifest
 
-
 REPOSITORY_ROOT = os.path.dirname(os.path.dirname(__file__))
 TWINE_PATH = os.path.join(REPOSITORY_ROOT, "twine.json")
 TEST_BUCKET_NAME = "octue-sdk-python-test-bucket"

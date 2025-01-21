@@ -40,5 +40,15 @@ variable "deletion_protection" {
 
 variable "kueue_version" {
   type = string
-  default = "v0.10.0"
+  default = "v0.10.1"
+}
+
+variable "cpus" {
+  type = number
+  default = 2
+}
+
+variable "memory" {
+  type = string
+  default = "2Gi"
 }

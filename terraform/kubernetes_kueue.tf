@@ -11,18 +11,19 @@ locals {
 
 
 # Install Kueue on the cluster by applying the installation manifests.
-resource "kubernetes_manifest" "install_kueue" {
+resource "kubectl_manifest" "install_kueue" {
   for_each = {
     for manifest in local.kueue_manifests :
     "${manifest.kind}--${manifest.metadata.name}" => manifest
   }
-  manifest = each.value
+  yaml_body = yamlencode(each.value)
+  server_side_apply = true
   depends_on = [time_sleep.wait_for_cluster_to_be_ready]
 }
 
 
 resource "time_sleep" "wait_for_kueue_installation" {
-  depends_on = [kubernetes_manifest.install_kueue]
+  depends_on = [kubectl_manifest.install_kueue]
   create_duration = "3m"
 }
 

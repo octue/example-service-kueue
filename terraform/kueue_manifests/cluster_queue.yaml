@@ -5,7 +5,7 @@ metadata:
 spec:
   namespaceSelector: {} # match all.
   resourceGroups:
-    - coveredResources: ["cpu", "memory"]
+    - coveredResources: ["cpu", "memory", "ephemeral-storage"]
       flavors:
         - name: "default-flavor"
           resources:
@@ -13,3 +13,5 @@ spec:
               nominalQuota: ${cpus}
             - name: "memory"
               nominalQuota: ${memory}
+            - name: "ephemeral-storage"
+              nominalQuota: 8Gi

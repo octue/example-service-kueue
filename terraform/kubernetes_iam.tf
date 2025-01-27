@@ -1,13 +1,5 @@
-resource "google_project_iam_binding" "default_node_service_account" {
-  project = var.google_cloud_project_id
-  role    = "roles/container.defaultNodeServiceAccount"
-  members = ["serviceAccount:${var.google_cloud_project_number}-compute@developer.gserviceaccount.com"]
-}
-
-
-# Creating these IAM bindings is the equivalent of running `gcloud eventarc gke-destinations init` and
-# `gcloud beta services identity create --service eventarc.googleapis.com`.
 locals {
+  cluster_iam_roles = tolist(["roles/container.defaultNodeServiceAccount", "roles/artifactregistry.reader"])
   eventarc_roles = tolist(
     [
       "roles/compute.viewer",
@@ -24,6 +16,17 @@ locals {
   )
 }
 
+
+resource "google_project_iam_binding" "default_node_service_account" {
+  count = length(local.cluster_iam_roles)
+  project = var.google_cloud_project_id
+  role    = local.cluster_iam_roles[count.index]
+  members = ["serviceAccount:${data.google_project.project.number}-compute@developer.gserviceaccount.com"]
+}
+
+
+# Creating these IAM bindings is the equivalent of running `gcloud eventarc gke-destinations init` and
+# `gcloud beta services identity create --service eventarc.googleapis.com`.
 resource "google_project_iam_binding" "eventarc_service_agent_gke_destinations_bindings" {
   count = length(local.eventarc_roles)
   project = var.google_cloud_project_id

@@ -28,7 +28,7 @@ resource "google_project_iam_binding" "eventarc_service_agent_gke_destinations_b
   count = length(local.eventarc_roles)
   project = var.google_cloud_project_id
   role = local.eventarc_roles[count.index]
-  members = ["serviceAccount:service-${var.google_cloud_project_number}@gcp-sa-eventarc.iam.gserviceaccount.com"]
+  members = ["serviceAccount:service-${data.google_project.project.number}@gcp-sa-eventarc.iam.gserviceaccount.com"]
 }
 
 

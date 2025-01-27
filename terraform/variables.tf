@@ -3,22 +3,12 @@ variable "google_cloud_project_id" {
   default = "terraform-training-438911"
 }
 
-variable "google_cloud_project_number" {
-  type = string
-  default = "1032632085173"
-}
-
 variable "google_cloud_region" {
   type = string
   default = "europe-west1"
 }
 
 variable "github_organisation" {
-  type = string
-  default = "octue"
-}
-
-variable "twined_service_namespace" {
   type = string
   default = "octue"
 }

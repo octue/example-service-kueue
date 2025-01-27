@@ -8,11 +8,11 @@ terraform {
     }
     kubernetes = {
       source = "hashicorp/kubernetes"
-      version = "~>2.35.1"
+      version = "~>2.35"
     }
     kubectl = {
       source  = "gavinbunney/kubectl"
-      version = "~>1.19.0"
+      version = "~>1.19"
     }
   }
 
@@ -37,17 +37,18 @@ data "google_client_config" "default" {}
 
 
 provider "kubernetes" {
-  host                   = "https://${google_container_cluster.primary.endpoint}"
-  token                  = data.google_client_config.default.access_token
-  cluster_ca_certificate = base64decode(google_container_cluster.primary.master_auth[0].cluster_ca_certificate)
+  config_path = "~/.kube/config"
+  # host                   = "https://${module.octue_twined.kubernetes_cluster.endpoint}"
+  # token                  = data.google_client_config.default.access_token
+  # cluster_ca_certificate = base64decode(module.octue_twined.kubernetes_cluster.master_auth[0].cluster_ca_certificate)
 }
 
 
 provider "kubectl" {
   load_config_file       = false
-  host                   = "https://${google_container_cluster.primary.endpoint}"
+  host                   = "https://${module.octue_twined.kubernetes_cluster.endpoint}"
   token                  = data.google_client_config.default.access_token
-  cluster_ca_certificate = base64decode(google_container_cluster.primary.master_auth[0].cluster_ca_certificate)
+  cluster_ca_certificate = base64decode(module.octue_twined.kubernetes_cluster.master_auth[0].cluster_ca_certificate)
 }
 
 

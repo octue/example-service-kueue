@@ -1,6 +1,6 @@
 variable "google_cloud_project_id" {
   type = string
-  default = "terraform-training-438911"
+  default = "octue-sdk-python"
 }
 
 variable "google_cloud_region" {

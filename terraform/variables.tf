@@ -27,3 +27,13 @@ variable "deletion_protection" {
   type    = bool
   default = false
 }
+
+variable "cpus" {
+  type = number
+  default = 100
+}
+
+variable "memory" {
+  type = string
+  default = "256Gi"
+}

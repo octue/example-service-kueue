@@ -13,7 +13,12 @@ logger = logging.getLogger(__name__)
 def run(analysis):
     logger.info("Started example analysis.")
     do_something()
-    time.sleep(2)
+
+    sleep_time = 720
+    logger.info("Sleeping for %d seconds...")
+    time.sleep(sleep_time)
+    logger.info("Finished sleeping!")
+
     analysis.output_values = [1, 2, 3, 4, 5]
 
     with tempfile.TemporaryDirectory() as temporary_directory:

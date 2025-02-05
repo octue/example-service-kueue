@@ -61,6 +61,5 @@ module "octue_twined" {
   environment = terraform.workspace
   service_account_names = var.service_account_names
   deletion_protection = var.deletion_protection
-  cpus = var.cpus
-  memory = var.memory
+  cluster_queue = var.cluster_queue
 }

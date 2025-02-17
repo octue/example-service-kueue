@@ -1,3 +1,3 @@
 {
-  "output_location": "gs://dev-octue-octue-twined/example-service-kueue/outputs"
+  "output_location": "gs://dev-octue-octue-sdk-python-octue-twined/example-service-kueue/outputs"
 }

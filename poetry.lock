@@ -965,8 +965,8 @@ hdf5 = ["h5py (>=3.6,<4.0)"]
 [package.source]
 type = "git"
 url = "https://github.com/octue/octue-sdk-python"
-reference = "add-kueue-service-backend"
-resolved_reference = "9eca502c529e5c85a11ec1e1b98fa98aeb519bf2"
+reference = "rc-kueue"
+resolved_reference = "f0b689fbb3b86dbb1d619a21b9a347123ed12305"
 
 [[package]]
 name = "opentelemetry-api"
@@ -1650,4 +1650,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "1c6f7cddfe96fcbab4bd6662275ca89949fd92da2d837b80c7b491220a6934d5"
+content-hash = "90d92980e14e6f492bf9ef08ccc87d582c501c1064cb2d557b18ad03469b5aa1"

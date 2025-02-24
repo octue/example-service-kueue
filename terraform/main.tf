@@ -53,7 +53,7 @@ provider "kubectl" {
 
 
 module "octue_twined" {
-  source = "git::github.com/octue/terraform-octue-twined.git?ref=create-initial-module"
+  source = "git::github.com/octue/terraform-octue-twined-cluster.git?ref=create-initial-module"
 
   google_cloud_project_id = var.google_cloud_project_id
   google_cloud_region = var.google_cloud_region

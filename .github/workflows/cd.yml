@@ -1,0 +1,20 @@
+name: cd
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  deploy:
+    if: "!contains(github.event.head_commit.message, 'skipci')"
+    uses: octue/workflows/.github/workflows/build-twined-service.yml@0.4.2
+    permissions:
+      id-token: write
+      contents: read
+    with:
+      gcp_project_name: octue-sdk-python
+      gcp_project_number: 437801218871
+      gcp_region: europe-west1
+      gcp_resource_affix: octue
+      gcp_service_name: example-service-kueue

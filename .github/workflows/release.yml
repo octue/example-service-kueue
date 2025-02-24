@@ -1,6 +1,6 @@
-name: Release the package on merge into main
+name: Release
 
-# Only trigger when a pull request into main branch is closed.
+# Only trigger when a pull request into main branch is merged.
 on:
   pull_request:
     types: [closed]
@@ -8,27 +8,67 @@ on:
       - main
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: "read"
+      id-token: "write"
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+
+      - name: Install package
+        run: poetry install
+
+      - name: Authenticate with Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: "projects/437801218871/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-provider"
+          service_account: "github-actions@octue-sdk-python.iam.gserviceaccount.com"
+
+      - name: Run tests
+        run: poetry run python -m unittest
+
   release:
-    # This job will only run if the PR has been merged (and not closed without merging).
-    if: "github.event.pull_request.merged == true && !contains(github.event.pull_request.head.message, 'skipci')"
+    if: "github.event.pull_request.merged == true"
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       - name: Install Poetry
-        uses: snok/install-poetry@v1.3.2
+        uses: snok/install-poetry@v1
+
+      - name: Check pyproject.toml file
+        run: poetry check
 
       - name: Get package version
-        id: get-package-version
-        run: echo "PACKAGE_VERSION=$(poetry version -s)" >> $GITHUB_OUTPUT
+        run: echo "PACKAGE_VERSION=$(poetry version -s)" >> $GITHUB_ENV
 
       - name: Create Release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, no need to create your own.
         with:
-          tag_name: ${{ steps.get-package-version.outputs.PACKAGE_VERSION }}
+          tag_name: ${{ env.PACKAGE_VERSION }}
           release_name: ${{ github.event.pull_request.title }}
           body: ${{ github.event.pull_request.body }}
           draft: false
           prerelease: false
+
+  deploy:
+    uses: octue/workflows/.github/workflows/build-twined-service.yml@0.4.2
+    needs: release
+    permissions:
+      id-token: write
+      contents: read
+    with:
+      gcp_project_name: octue-sdk-python
+      gcp_project_number: 437801218871
+      gcp_region: europe-west1
+      gcp_resource_affix: octue
+      gcp_service_name: example-service-kueue

@@ -2,7 +2,8 @@
 
 An example Octue Twined data service using Kubernetes/Kueue as the service backend.
 
-The terraform modules this service depends on are:
+The infrastructure that runs this service can be found [here](https://github.com/octue/twined-infrastructure). It
+depends on these Terraform modules:
 
 - [Octue Twined core](https://github.com/octue/terraform-octue-twined-core)
 - [Octue Twined cluster](https://github.com/octue/terraform-octue-twined-cluster)

@@ -27,7 +27,7 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: "projects/437801218871/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-provider"
+          workload_identity_provider: "projects/13074362726/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-provider"
           service_account: "github-actions@octue-sdk-python.iam.gserviceaccount.com"
 
       - name: Run tests
@@ -67,8 +67,8 @@ jobs:
       id-token: write
       contents: read
     with:
-      gcp_project_name: octue-sdk-python
-      gcp_project_number: 437801218871
-      gcp_region: europe-west1
+      gcp_project_name: octue-twined-services
+      gcp_project_number: 13074362726
+      gcp_region: europe-west9
       gcp_resource_affix: octue
       gcp_service_name: example-service-kueue

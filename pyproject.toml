@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "example-service-kueue"
-version = "0.1.0"
+version = "0.1.1"
 description = "An example Octue Twined data service using Kueue as the service backend."
 authors = ["Marcus Lugg <marcus@octue.com>"]
 license = "MIT"

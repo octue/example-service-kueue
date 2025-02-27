@@ -7,4 +7,4 @@ services:
     diagnostics_cloud_path: gs://octue-octue-twined-services-octue-twined/example-service-kueue/diagnostics
     service_registries:
       - name: Octue service registry
-        endpoint: https://europe-west1-octue-twined-services.cloudfunctions.net/main-octue-twined-service-registry
+        endpoint: https://europe-west9-octue-twined-services.cloudfunctions.net/main-octue-twined-service-registry

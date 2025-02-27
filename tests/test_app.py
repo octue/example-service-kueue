@@ -8,7 +8,7 @@ from octue.resources import Manifest
 
 REPOSITORY_ROOT = os.path.dirname(os.path.dirname(__file__))
 TWINE_PATH = os.path.join(REPOSITORY_ROOT, "twine.json")
-TEST_BUCKET_NAME = "octue-sdk-python-test-bucket"
+TEST_BUCKET_NAME = "octue-twined-services-test-bucket"
 
 
 class TestApp(unittest.TestCase):
@@ -25,7 +25,7 @@ class TestApp(unittest.TestCase):
             twine=TWINE_PATH,
             # Output location is taken from the app configuration automatically in a service but not if `Runner` is used
             # by itself.
-            output_location="gs://octue-sdk-python-test-bucket/example_output_datasets",
+            output_location="gs://octue-twined-services-test-bucket/example_output_datasets",
         )
 
         with patch("google.cloud.storage.blob.Blob.generate_signed_url", mock_generate_signed_url):

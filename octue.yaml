@@ -4,7 +4,7 @@ services:
     app_source_path: example_service_kueue
     app_configuration_path: app_configuration.json
     event_store_table_id: octue_twined.service-events
-    diagnostics_cloud_path: gs://octue-octue-sdk-python-octue-twined/example-service-kueue/diagnostics
+    diagnostics_cloud_path: gs://octue-octue-twined-services-octue-twined/example-service-kueue/diagnostics
     service_registries:
       - name: Octue service registry
-        endpoint: https://europe-west1-octue-sdk-python.cloudfunctions.net/main-octue-twined-service-registry
+        endpoint: https://europe-west9-octue-twined-services.cloudfunctions.net/main-octue-twined-service-registry

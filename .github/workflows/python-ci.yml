@@ -36,7 +36,7 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           workload_identity_provider: "projects/13074362726/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-provider"
-          service_account: "github-actions@octue-sdk-python.iam.gserviceaccount.com"
+          service_account: "github-actions@octue-twined-services.iam.gserviceaccount.com"
 
       - name: Run tests
         run: poetry run python -m unittest

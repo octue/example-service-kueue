@@ -20,6 +20,12 @@ class TestKueueDeployment(TestCase):
     child = Child(
         id=EXAMPLE_SERVICE_SRUID,
         backend={"name": "GCPPubSubBackend", "project_name": "octue-twined-services"},
+        service_registries=[
+            {
+                "name": "Octue service registry",
+                "endpoint": "https://europe-west9-octue-twined-services.cloudfunctions.net/main-octue-twined-service-registry",
+            }
+        ],
     )
 
     def test_forwards_exceptions_to_parent(self):

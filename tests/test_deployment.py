@@ -9,7 +9,7 @@ from octue.cloud.pub_sub.bigquery import get_events
 from octue.resources import Child
 import twined.exceptions
 
-EXAMPLE_SERVICE_SRUID = "octue/example-service-kueue:0.1.1"
+EXAMPLE_SERVICE_SRUID = "octue/example-service-kueue:0.1.2"
 
 
 @unittest.skipUnless(
@@ -20,6 +20,12 @@ class TestKueueDeployment(TestCase):
     child = Child(
         id=EXAMPLE_SERVICE_SRUID,
         backend={"name": "GCPPubSubBackend", "project_name": "octue-twined-services"},
+        service_registries=[
+            {
+                "name": "Octue service registry",
+                "endpoint": "https://europe-west9-octue-twined-services.cloudfunctions.net/main-octue-twined-service-registry",
+            }
+        ],
     )
 
     def test_forwards_exceptions_to_parent(self):

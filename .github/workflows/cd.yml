@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     if: "!contains(github.event.head_commit.message, 'skipci')"
-    uses: octue/workflows/.github/workflows/build-twined-service.yml@0.4.2
+    uses: octue/workflows/.github/workflows/build-twined-service.yml@0.5.0
     permissions:
       id-token: write
       contents: read
@@ -16,5 +16,5 @@ jobs:
       gcp_project_name: octue-twined-services
       gcp_project_number: 13074362726
       gcp_region: europe-west9
-      gcp_resource_affix: octue
-      gcp_service_name: example-service-kueue
+      service_namespace: octue
+      service_name: example-service-kueue

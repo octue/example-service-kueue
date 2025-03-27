@@ -9,7 +9,7 @@ from octue.cloud.pub_sub.bigquery import get_events
 from octue.resources import Child
 import twined.exceptions
 
-EXAMPLE_SERVICE_SRUID = "octue/example-service-kueue:0.1.2"
+EXAMPLE_SERVICE_SRUID = "octue/example-service-kueue:0.1.4"
 
 
 @unittest.skipUnless(

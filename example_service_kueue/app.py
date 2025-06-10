@@ -23,4 +23,7 @@ def run(analysis):
         analysis.output_manifest.datasets["example_dataset"] = Dataset(path=temporary_directory, files={datafile})
         analysis.finalise(upload_output_datasets_to=analysis.output_location)
 
+    if analysis.input_values.get("raise_error"):
+        raise ValueError("Raised an error because the `raise_error` input was set to `True`.")
+
     logger.info("Finished example analysis.")

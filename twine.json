@@ -5,6 +5,9 @@
     "properties": {
       "n_iterations": {
         "type": "integer"
+      },
+      "raise_error": {
+        "type": "boolean"
       }
     }
   },

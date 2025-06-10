@@ -19,7 +19,7 @@ EXAMPLE_SERVICE_SRUID = "octue/example-service-kueue:0.1.4"
 class TestKueueDeployment(TestCase):
     child = Child(
         id=EXAMPLE_SERVICE_SRUID,
-        backend={"name": "GCPPubSubBackend", "project_name": "octue-twined-services"},
+        backend={"name": "GCPPubSubBackend", "project_id": "octue-twined-services"},
         service_registries=[
             {
                 "name": "Octue service registry",

@@ -6,8 +6,8 @@ from unittest import TestCase
 from octue.twined.cloud.events.replayer import EventReplayer
 from octue.twined.cloud.events.validation import is_event_valid
 from octue.twined.cloud.pub_sub.bigquery import get_events
+import octue.twined.exceptions
 from octue.twined.resources import Child
-import twined.exceptions
 
 EXAMPLE_SERVICE_SRUID = "octue/example-service-kueue:0.1.4"
 
@@ -30,7 +30,7 @@ class TestKueueDeployment(TestCase):
 
     def test_forwards_exceptions_to_parent(self):
         """Test that exceptions raised in the (remote) responding service are forwarded to and raised by the asker."""
-        with self.assertRaises(twined.exceptions.InvalidValuesContents):
+        with self.assertRaises(octue.twined.exceptions.InvalidValuesContents):
             self.child.ask(input_values={"invalid_input_data": "hello"})
 
     def test_synchronous_question(self):

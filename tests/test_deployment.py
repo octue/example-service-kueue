@@ -4,7 +4,6 @@ import unittest
 from unittest import TestCase
 
 from octue.twined.cloud.events.replayer import EventReplayer
-from octue.twined.cloud.events.validation import is_event_valid
 from octue.twined.cloud.pub_sub.bigquery import get_events
 import octue.twined.exceptions
 from octue.twined.resources import Child
@@ -54,19 +53,12 @@ class TestKueueDeployment(TestCase):
         # Wait for question to complete.
         time.sleep(90)
 
-        events = get_events(table_id="octue_twined.service-events", question_uuid=question_uuid)
-
-        self.assertTrue(
-            is_event_valid(
-                event=events[0]["event"],
-                attributes=events[0]["attributes"],
-                recipient=None,
-                parent_sdk_version=None,
-                child_sdk_version=None,
-            )
+        events = get_events(
+            table_id="octue_twined.service-events",
+            question_uuid=question_uuid,
+            exclude_kinds=["question"],
         )
-
-        replayer = EventReplayer()
+        replayer = EventReplayer(validate_events=True)
         answer = replayer.handle_events(events)
 
         # Check the output values.

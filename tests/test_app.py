@@ -46,3 +46,16 @@ class TestApp(unittest.TestCase):
         # Check that the output dataset and its files can be accessed.
         with downloaded_output_manifest.datasets["example_dataset"].files.one() as (datafile, f):
             self.assertEqual(f.read(), "This is some example service output.")
+
+    def test_with_raise_error(self):
+        """Test that an error is raised if `raise_error=True` in the input values."""
+        runner = Runner(
+            app_src=os.path.join(REPOSITORY_ROOT, "example_service_kueue"),
+            twine=TWINE_PATH,
+            # Output location is taken from the app configuration automatically in a service but not if `Runner` is used
+            # by itself.
+            output_location="gs://octue-twined-services-test-bucket/example_output_datasets",
+        )
+
+        with self.assertRaises(ValueError):
+            runner.run(input_values={"n_iterations": 3, "raise_error": True})

@@ -3,13 +3,12 @@ import time
 import unittest
 from unittest import TestCase
 
-from octue.cloud.events.replayer import EventReplayer
-from octue.cloud.events.validation import is_event_valid
-from octue.cloud.pub_sub.bigquery import get_events
-from octue.resources import Child
-import twined.exceptions
+from octue.twined.cloud.events.replayer import EventReplayer
+from octue.twined.cloud.pub_sub.bigquery import get_events
+import octue.twined.exceptions
+from octue.twined.resources import Child
 
-EXAMPLE_SERVICE_SRUID = "octue/example-service-kueue:0.1.4"
+EXAMPLE_SERVICE_SRUID = "octue/example-service-kueue:0.1.5"
 
 
 @unittest.skipUnless(
@@ -19,7 +18,7 @@ EXAMPLE_SERVICE_SRUID = "octue/example-service-kueue:0.1.4"
 class TestKueueDeployment(TestCase):
     child = Child(
         id=EXAMPLE_SERVICE_SRUID,
-        backend={"name": "GCPPubSubBackend", "project_name": "octue-twined-services"},
+        backend={"name": "GCPPubSubBackend", "project_id": "octue-twined-services"},
         service_registries=[
             {
                 "name": "Octue service registry",
@@ -30,7 +29,7 @@ class TestKueueDeployment(TestCase):
 
     def test_forwards_exceptions_to_parent(self):
         """Test that exceptions raised in the (remote) responding service are forwarded to and raised by the asker."""
-        with self.assertRaises(twined.exceptions.InvalidValuesContents):
+        with self.assertRaises(octue.twined.exceptions.InvalidValuesContents):
             self.child.ask(input_values={"invalid_input_data": "hello"})
 
     def test_synchronous_question(self):
@@ -54,19 +53,12 @@ class TestKueueDeployment(TestCase):
         # Wait for question to complete.
         time.sleep(90)
 
-        events = get_events(table_id="octue_twined.service-events", question_uuid=question_uuid)
-
-        self.assertTrue(
-            is_event_valid(
-                event=events[0]["event"],
-                attributes=events[0]["attributes"],
-                recipient=None,
-                parent_sdk_version=None,
-                child_sdk_version=None,
-            )
+        events = get_events(
+            table_id="octue_twined.service-events",
+            question_uuid=question_uuid,
+            exclude_kinds=["question"],
         )
-
-        replayer = EventReplayer()
+        replayer = EventReplayer(validate_events=True)
         answer = replayer.handle_events(events)
 
         # Check the output values.

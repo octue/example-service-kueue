@@ -31,7 +31,7 @@ export GOOGLE_APPLICATION_CREDENTIALS=/path/to/gcp-credentials.json
 Run the following python code:
 
 ```python
-from octue.resources import Child
+from octue.twined.resources import Child
 
 
 # Point to the data service

@@ -18,3 +18,4 @@ jobs:
       gcp_region: europe-west9
       service_namespace: octue
       service_name: example-service-kueue
+      local_dockerfile: Dockerfile

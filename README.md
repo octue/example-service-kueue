@@ -36,7 +36,7 @@ from octue.twined.resources import Child
 
 # Point to the data service
 child = Child(
-    id="octue/example-service:0.1.4",
+    id="octue/example-service-kueue:0.1.7",
     backend={"name": "GCPPubSubBackend", "project_id": "octue-twined-services"},
 )
 

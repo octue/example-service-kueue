@@ -772,35 +772,39 @@ files = [
 
 [[package]]
 name = "octue"
-version = "0.67.0"
+version = "0.69.0"
 description = "A package providing template applications for data services, and a python SDK to the Octue API."
 optional = false
-python-versions = "<4.0,>=3.10"
+python-versions = "^3.10"
 groups = ["main"]
-files = [
-    {file = "octue-0.67.0-py3-none-any.whl", hash = "sha256:3ae7490d242400ac1f152d50f25943a56f121b8172b1406c0a10307f3f39a194"},
-    {file = "octue-0.67.0.tar.gz", hash = "sha256:93acbcd947756afdbcfab98c1478bf322679d5ed33577d7ffcfee9cebd0f699c"},
-]
+files = []
+develop = false
 
 [package.dependencies]
 click = ">=7,<9"
-coolname = ">=2,<3"
+coolname = "^2"
 google-auth = ">=1.27.0,<3"
-google-cloud-bigquery = ">=3.18.0,<4.0.0"
-google-cloud-pubsub = ">=2.5,<3.0"
-google-cloud-secret-manager = ">=2.20,<3.0"
-google-cloud-storage = ">=1.35.1,<3"
-google-crc32c = ">=1.1,<2.0"
-grpcio = ">=1.71.0,<2.0.0"
-jsonschema = ">=4,<5"
+google-cloud-bigquery = "^3.18.0"
+google-cloud-pubsub = "^2.5"
+google-cloud-secret-manager = "^2.20"
+google-cloud-storage = ">=1.35.1, <3"
+google-crc32c = "^1.1"
+grpcio = "^1.71.0"
+jsonschema = "^4"
 packaging = ">=20.4"
-pydash = ">=8.0.4,<9.0.0"
-python-dateutil = ">=2.8,<3.0"
+pydash = "^8.0.4"
+python-dateutil = "^2.8"
 python-dotenv = ">=0,<=2"
-pyyaml = ">=6,<7"
+pyyaml = "^6"
 
 [package.extras]
 hdf5 = ["h5py (>=3.6,<4.0)"]
+
+[package.source]
+type = "git"
+url = "https://github.com/octue/octue-sdk-python"
+reference = "rewrite-docs"
+resolved_reference = "ec95f1259dd79a512812d81b1f64291428c6efee"
 
 [[package]]
 name = "opentelemetry-api"
@@ -1450,4 +1454,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "b36c2cf75c9bc49e6d936d9a814a9cc655ad3c05fcaeb9c8e249714a0df2242c"
+content-hash = "4c7731f683ed2ae981787d0224a703419efb558885d39f66b838ba53a0426260"

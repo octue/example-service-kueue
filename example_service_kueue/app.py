@@ -1,9 +1,9 @@
+import json
 import logging
-import os
-import tempfile
 import time
 
 from octue.resources import Datafile, Dataset
+from octue.twined.resources.example import calculate_fibonacci_sequence
 
 from example_service_kueue.submodule import do_something
 
@@ -12,15 +12,23 @@ logger = logging.getLogger(__name__)
 
 def run(analysis):
     logger.info("Started example analysis.")
+
+    # Get your input values...
+    n = analysis.input_values["n"]
+
+    # Do your calculations here...
+    sequence = calculate_fibonacci_sequence(n)
     do_something()
     time.sleep(2)
-    analysis.output_values = [1, 2, 3, 4, 5]
 
-    with tempfile.TemporaryDirectory() as temporary_directory:
-        with Datafile(os.path.join(temporary_directory, "output.dat"), mode="w") as (datafile, f):
-            f.write("This is some example service output.")
+    # Return results by assigning output values...
+    analysis.output_values = {"fibonacci": sequence}
 
-        analysis.output_manifest.datasets["example_dataset"] = Dataset(path=temporary_directory, files={datafile})
-        analysis.finalise(upload_output_datasets_to=analysis.output_location)
+    # If output values are too large, or custom/binary file outputs
+    # are required, you can save them as Datafiles and add them to
+    # the output manifest...
+    with Datafile("fibonacci.json", mode="w") as (datafile, f):
+        json.dump(analysis.output_values, f)
 
+    analysis.output_manifest.datasets["example_dataset"] = Dataset(files={datafile})
     logger.info("Finished example analysis.")

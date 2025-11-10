@@ -9,7 +9,7 @@ packages = [{include = "example_service_kueue"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-octue = { git = "https://github.com/octue/octue-sdk-python", branch = "rewrite-docs" }
+octue = "^0.69.0"
 
 [tool.poetry.group.dev.dependencies]
 gcp-storage-emulator = "2022.4.13"

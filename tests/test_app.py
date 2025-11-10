@@ -1,3 +1,4 @@
+import json
 import os
 import unittest
 from unittest.mock import patch
@@ -30,14 +31,17 @@ class TestApp(unittest.TestCase):
 
         with patch("google.cloud.storage.blob.Blob.generate_signed_url", mock_generate_signed_url):
             with self.assertLogs() as logging_context:
-                analysis = runner.run(input_values={"n_iterations": 3})
+                analysis = runner.run(input_values={"n": 6})
 
         # Check log messages from app and submodules are emitted.
         self.assertEqual(logging_context.records[1].name, "app")
-        self.assertEqual(logging_context.records[2].name, "example_service_kueue.submodule")
+        self.assertEqual(logging_context.records[2].name, "octue.twined.resources.example")
+        self.assertEqual(logging_context.records[4].name, "example_service_kueue.submodule")
+
+        expected = {"fibonacci": [0, 1, 1, 2, 3, 5]}
 
         # Check the output values.
-        self.assertEqual(analysis.output_values, [1, 2, 3, 4, 5])
+        self.assertEqual(analysis.output_values, expected)
 
         # Test that the signed URLs for the dataset and its files work and can be used to reinstantiate the output
         # manifest after serialisation.
@@ -45,4 +49,4 @@ class TestApp(unittest.TestCase):
 
         # Check that the output dataset and its files can be accessed.
         with downloaded_output_manifest.datasets["example_dataset"].files.one() as (datafile, f):
-            self.assertEqual(f.read(), "This is some example service output.")
+            self.assertEqual(json.load(f), expected)

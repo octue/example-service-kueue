@@ -1,6 +1,7 @@
 # example-service-kueue
 
-An example Octue Twined data service using Kubernetes/Kueue as the service backend.
+An example Octue Twined service using Kubernetes/Kueue as the service backend. The service calculates the first `n`
+values in the Fibonacci sequence.
 
 The infrastructure that runs this service can be found [here](https://github.com/octue/twined-infrastructure). It
 depends on these Terraform modules:
@@ -36,13 +37,18 @@ from octue.twined.resources import Child
 
 # Point to the data service
 child = Child(
-    id="octue/example-service:0.1.4",
+    id="octue/example-service-kueue:0.2.0",
     backend={"name": "GCPPubSubBackend", "project_id": "octue-twined-services"},
 )
 
 # Ask a question
-answer, _ = child.ask(input_values={"n_iterations": 5}, timeout=3600)
+answer, _ = child.ask(input_values={"n": 10}, timeout=3600)
 
 # Access the output data
 answer
+>>> {
+    "kind": "result",
+    "output_values": {"fibonacci": [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]},
+    "output_manifest": None,
+}
 ```
